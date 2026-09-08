@@ -1,20 +1,13 @@
 module contador(
-	input rst,
-	input clk,
-	output cont_out[2:0]
+	input reset,
+	input clock,
+	output logic [2:0] cont_out
 );
-    divisor_clock div_clk
-	(
-		.clk_in(),
-		.clk_out (clk)
-	);
-	
 
-	always_ff @(posedge clk or negedge rst ) begin
-		if(!rst)begin
-			cont_out = 3'b000	
+	always_ff @(posedge clock or posedge reset ) begin
+		if(reset or cont_out == 3'b111)begin
+			cont_out <= 3'b000;
 		end
-		
 		else begin
 			cont_out <= cont_out + 3'b001;
 		end
