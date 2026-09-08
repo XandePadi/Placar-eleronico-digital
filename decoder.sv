@@ -1,16 +1,6 @@
 module decoder (
-    input clock,
-    input reset,
-    input contador,
-    output[6:0] display_en
-
-
-    );
-
-    contador cont(
-        .clk(clock),
-        .rst(reset),
-        .cont_out(contador)
+    input logic [2:0] contador,
+    output logic [7:0] display_en
     );
 
     always_comb begin
@@ -25,9 +15,6 @@ module decoder (
             3'b111: display_en = 8'b01111111; // 7
             default: display_en = 8'b11111111;
         endcase
-
-
-
     end
 
 endmodule
