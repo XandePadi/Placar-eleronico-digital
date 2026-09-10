@@ -55,6 +55,30 @@ module placar_eletronico_digital (
         .display (display)
     );
 
+    contador_equipe_A equipe_a (
+        .clk(clock),
+        .rst(reset),
+
+        .incr_a(incr_a),
+        .decr_a(decr_a),
+         .unidade_A(unidade_A),
+        .dezena_A(dezena_A),
+        .centena_A(centena_A),
+        .milhar_A(milhar_A)
+    );
+    contador_equipe_B equipe_b (
+        .clk(clock),
+        .rst(reset),
+
+        .incr_b(incr_b),
+        .decr_b(decr_b),
+         .unidade_B(unidade_B),
+        .dezena_B(dezena_B),
+        .centena_B(centena_B),
+        .milhar_B(milhar_B)
+    );
+
+
 
 
 
@@ -66,3 +90,4 @@ endmodule
     de detecção de borda e ou debouncer em cada um destes botoes de forma que o inc/decr sejam UNITARIOS
 */
     //botão para o reset colocada em nível lógico alto
+
