@@ -1,19 +1,21 @@
-module single_edge_detector(
-    input clk,
-    input rst,
-
-    input sign_in,
-    output edge_out
+module edge_detector (
+    input  logic clk,
+    input  logic rst,
+    input  logic data,      // sinal bruto do botão
+    output logic edge_out
 );
+    logic regA, regB;
 
-    logic sig_prev;
-
-    always_ff @(posdge clk) begin
-        if(rst)
-            sig_prev <= 1'b0;
-        else
-            sig_prev <= sig_in;
+    always_ff @(posedge clk) begin
+        if (rst) begin
+            regA <= 1'b0;
+            regB <= 1'b0;
+        end else begin
+            regB <= regA;
+            regA <= data;
+        end
     end
 
-    assign edge_out = sig_in & ~sig_prev;
+    assign edge_out = regA & ~regB;
+
 endmodule
