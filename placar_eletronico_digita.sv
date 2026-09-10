@@ -23,6 +23,11 @@ module placar_eletronico_digital (
     logic [3:0] centena_B;
     logic [3:0] milhar_B;
 
+    logic borda_incr_a;
+    logic borda_decr_a;
+    logic borda_incr_b;
+    logic borda_decr_b;
+
 
     divisor_clock div_clk (
         .clk_in   (clock),
@@ -55,24 +60,42 @@ module placar_eletronico_digital (
         .display (display)
     );
 
+    detectores_de_borda detectores (
+        .clk(clock),
+        .reset(reset),
+
+        .incr_a(incr_a),
+        .decr_a(decr_a),
+        .incr_b(incr_b),
+        .decr_b(decr_b),
+
+        .borda_incr_a(borda_incr_a),
+        .borda_decr_a(borda_decr_a),
+        .borda_incr_b(borda_incr_b),
+        .borda_decr_b(borda_decr_b)
+    );
+
     contador_equipe_A equipe_a (
         .clk(clock),
         .rst(reset),
 
-        .incr_a(incr_a),
-        .decr_a(decr_a),
-         .unidade_A(unidade_A),
+        .borda_incr_a(borda_incr_a),
+        .borda_decr_a(borda_decr_a),
+
+        .unidade_A(unidade_A),
         .dezena_A(dezena_A),
         .centena_A(centena_A),
         .milhar_A(milhar_A)
     );
+
     contador_equipe_B equipe_b (
         .clk(clock),
         .rst(reset),
 
-        .incr_b(incr_b),
-        .decr_b(decr_b),
-         .unidade_B(unidade_B),
+        .borda_incr_b(borda_incr_b),
+        .borda_decr_b(borda_decr_b),
+
+        .unidade_B(unidade_B),
         .dezena_B(dezena_B),
         .centena_B(centena_B),
         .milhar_B(milhar_B)
@@ -83,11 +106,3 @@ module placar_eletronico_digital (
 
 
 endmodule
-//pontos indicados em 4 display
-    //contagem de pontos no min(0000) e no max(9999)
-    //cada equipe deve possuir dois botões de controle(incr e decr)
-    /*pressionar o botão de incr/decr a contagem n pode pular -> para isso deve ser usado um circuio
-    de detecção de borda e ou debouncer em cada um destes botoes de forma que o inc/decr sejam UNITARIOS
-*/
-    //botão para o reset colocada em nível lógico alto
-

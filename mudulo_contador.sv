@@ -1,4 +1,4 @@
-module contador(
+module modulo_contador(
 	input reset,
 	input clock,
 	output logic [2:0] cont_out
